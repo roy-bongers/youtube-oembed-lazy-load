@@ -1,0 +1,61 @@
+span.youtube-still {
+	display: block;
+	width: 100%;
+	background-color: #000000;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: relative;
+	cursor: pointer;
+
+	&:after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: rgba(0, 0, 0, 0.7);
+		padding: 10px 30px;
+		font-family: 'Font Awesome\ 5 Free';
+		font-weight: 900;
+		font-size: 1.2em;
+		border-radius: 10px;
+		content: '\f04b';
+		color: #FFF;
+	}
+
+	&:hover {
+		-webkit-filter: brightness(85%);
+
+		&:after {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+	}
+}
+
+.yt-iframe-container {
+  overflow: hidden;
+  position: relative;
+  padding-top: 56.25%;
+
+  &.aspect-ratio-4x3 {
+    padding-top: 75%;
+  }
+  &.aspect-ratio-16x9 {
+    padding-top: 56.25%;
+  }
+}
+.yt-iframe-container iframe {
+   border: 0;
+   height: 100%;
+   left: 0;
+   position: absolute;
+   top: 0;
+   width: 100%;
+}
+
+@media screen and (min-width: 640px) {
+	span.youtube-still:after {
+		padding: 15px 40px;
+		font-size: 1.5em;
+	}
+}

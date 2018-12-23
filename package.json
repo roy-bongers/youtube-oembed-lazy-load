@@ -1,0 +1,25 @@
+{
+  "name": "youtube-oembed-lazyload",
+  "version": "1.0.0",
+  "description": "CSS / JS minifier",
+  "main": "index.js",
+  "devDependencies": {
+    "node-sass": "^4.9.2",
+    "onchange": "^4.1.0",
+    "parallelshell": "^3.0.2",
+    "uglify-js": "^3.4.5"
+  },
+  "scripts": {
+    "scss": "node-sass --output-style compressed -o assets/dist/css assets/src/scss",
+    "uglify": "uglifyjs assets/src/js/*.js --compress -m -c -o assets/dist/js/youtube-oembed-lazy-load.js",
+    "build:js": "npm run uglify",
+    "build:css": "npm run scss",
+    "build:all": "npm run build:css && npm run build:js",
+    "watch:css": "onchange 'assets/src/scss/*.scss' -- npm run build:css",
+    "watch:js": "onchange 'assets/src/js/*.js' -- npm run build:js",
+    "watch:all": "parallelshell 'npm run serve' 'npm run watch:css' 'npm run watch:js'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roy Bongers",
+  "license": "MIT"
+}
