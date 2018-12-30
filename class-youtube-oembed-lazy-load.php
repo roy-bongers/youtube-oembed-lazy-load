@@ -18,6 +18,7 @@ class YouTube_oEmbed_Lazy_Load {
 	private function __construct() {
 		add_filter( 'oembed_dataparse', array( $this, 'render_oembed_html' ), 20, 3 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+		add_filter( 'mce_css', array( $this, 'editor_styles' ), 10, 1 );
 	}
 
 	/**
@@ -38,7 +39,23 @@ class YouTube_oEmbed_Lazy_Load {
 	public function enqueue_styles() {
 		wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.6.1/css/all.css', false, YOUTUBE_OEMBED_LAZY_LOAD_VERSION );
 		wp_enqueue_style( 'yt-oembed-lazyload', plugins_url( 'assets/dist/css/youtube-oembed-lazy-load.css', __FILE__ ), false, YOUTUBE_OEMBED_LAZY_LOAD_VERSION );
-		wp_enqueue_script( 'yt-oembed-lazyload', plugins_url( '/assets/dist/js/youtube-oembed-lazy-load.js', __FILE__ ), false, YOUTUBE_OEMBED_LAZY_LOAD_VERSION );
+		wp_enqueue_script( 'yt-oembed-lazyload', plugins_url( 'assets/dist/js/youtube-oembed-lazy-load.js', __FILE__ ), false, YOUTUBE_OEMBED_LAZY_LOAD_VERSION );
+	}
+
+	/**
+	 * Add stylesheets to the WP (classic) editor.
+	 *
+	 * @param string $stylesheets Comma seperated list of stylesheet URL's.
+	 * @return string
+	 */
+	public function editor_styles( $stylesheets ) {
+		return $stylesheets . ',' . implode(
+			',',
+			array(
+				plugins_url( 'assets/dist/css/youtube-oembed-lazy-load.css', __FILE__ ),
+				'https://use.fontawesome.com/releases/v5.6.1/css/all.css',
+			)
+		);
 	}
 
 	/**
@@ -54,14 +71,14 @@ class YouTube_oEmbed_Lazy_Load {
 		$where_clauses = array();
 		foreach ( $results as $result ) {
 			$oembed_hash     = str_replace( '_oembed_', '', $result->meta_key );
-			$where_clauses[] = "'_oembed_" . $oembed_hash . "'";
-			$where_clauses[] = "'_oembed_time_" . $oembed_hash . "'";
+			$where_clauses[] = '_oembed_' . $oembed_hash;
+			$where_clauses[] = '_oembed_time_' . $oembed_hash;
 		}
 
 		// Delete all oEmbed caches which contain YouTube data.
 		if ( ! empty( $where_clauses ) ) {
-			$query = "DELETE FROM $wpdb->postmeta WHERE $wpdb->postmeta.meta_key IN (" . implode( ',', $where_clauses ) . ')';
-			if ( false === $wpdb->query( $query ) ) {
+			$query = "DELETE FROM $wpdb->postmeta WHERE $wpdb->postmeta.meta_key IN (" . implode( ', ', array_fill( 0, count( $where_clauses ), '%s' ) ) . ')';
+			if ( false === $wpdb->query( call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $query ), $where_clauses ) ) ) ) {
 				// @todo logging?
 			}
 		}
