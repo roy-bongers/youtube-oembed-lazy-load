@@ -18,6 +18,7 @@
     "type": "wordpress-plugin",
     "require": {
         "php": ">=5.6.0",
+        "ext-xml": "*",
         "composer/installers": "^v1.6.0"
     },
     "license": "GPL-3.0-or-later",
