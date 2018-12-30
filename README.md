@@ -1,6 +1,11 @@
 # YouTube oEmbed Lazy Load
 This WordPress plugin replaces the default YouTube embed with a still (image) from the video and a play button instead of embedding the whole iframe. Only the image will be downloaded instead of the entire YouTube iframe (around 600kB). This makes your page render a lot faster which is especially important on mobile devices. When the play button is clicked the iframe will be loaded and the video wil start auto-playing (for mobile, see [known issues](#known-issues)).
 
+## Usage
+Use the default WordPress embed shortcode. The video will automatically be embeded with a still instead of the original iframe.
+
+```[embed]https://www.youtube.com/watch?v=dQw4w9WgXcQ[/embed]```
+
 ## Requirements
 * PHP >= 5.6 with php-xml module.
 * WordPress with the classic-editor plugin installed and activated.
