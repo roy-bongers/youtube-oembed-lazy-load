@@ -1,0 +1,25 @@
+{
+    "name": "roy-bongers/youtube-oembed-lazy-load",
+    "description": "WordPress plugin to Lazy Load YouTube video's in order to save bandwidth.",
+    "keywords": ["wordpress", "plugin", "youtube", "lazyload"],
+    "homepage": "http://github.com/roy-bongers/youtube-oembed-lazy-load",
+    "authors": [
+        {
+            "name": "Roy Bongers",
+            "homepage": "https://roybongers.nl/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "http://github.com/roy-bongers/youtube-oembed-lazy-load/issues",
+        "source": "http://github.com/roy-bongers/youtube-oembed-lazy-load",
+        "docs": "http://github.com/roy-bongers/youtube-oembed-lazy-load"
+    },
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=5.6.0",
+        "composer/installers": "^v1.6.0"
+    },
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "stable"
+}
