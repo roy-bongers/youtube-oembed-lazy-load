@@ -4,7 +4,7 @@
   "description": "CSS / JS minifier",
   "main": "index.js",
   "devDependencies": {
-    "node-sass": "^4.13.1",
+    "node-sass": "^8.0.0",
     "onchange": "^4.1.0",
     "parallelshell": "^3.0.2",
     "uglify-js": "^3.8.0"
